@@ -1,0 +1,93 @@
+<html>
+<style>
+
+a:visited {
+    color: blue;
+    background-color:#f48024 ;
+    text-decoration: none;
+	border-color:#9B6114;
+	box-shadow:inset 0 1px 0 #ffc272;
+}
+a:hover {
+    color: blue;
+    background-color:#9B6114 ;
+    text-decoration: none;
+	border-color:#9B6114;
+	box-shadow:inset 0 1px 0 #ffc272;
+}
+
+.button {
+  font: bold 15px Arial;
+  text-decoration: none;
+  background-color: #EEEEEE;
+  color: #333333;
+  padding: 2px 6px 2px 6px;
+  border-top: 1px solid #CCCCCC;
+  border-right: 1px solid #333333;
+  border-bottom: 1px solid #333333;
+  border-left: 1px solid #CCCCCC;
+}
+.center{
+   margin: auto;
+   width: 50%;
+  /* border: 3px solid #73AD21;*/
+   padding: 50px;
+   
+}
+header {
+    padding: 1em;
+    color: white;
+    background-color: black;
+    clear: left;
+    text-align: center;
+	
+}
+
+nav {
+    float: left;
+    max-width: 160px;
+    margin: 0;
+    padding: 1em;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+   
+nav ul a {
+    text-decoration: none;
+}
+</style>
+<body bgcolor="#E6E6FA">
+
+
+<?php session_start();
+if(isset($_SESSION['message']))
+{
+echo $_SESSION['message'];
+unset ($_SESSION['message']);
+}
+include('db.php');
+if(isset($_SESSION['user']))
+{?>
+
+<div class="center">
+<br>
+<b><a href="dashboard.html" class="button"> Home</a></b>
+<br>
+<div align="right">
+Welcome <?php echo $_SESSION['user']['firstname']; ?> <?php echo $_SESSION['user']['lastname']; ?> &nbsp <a href="logout.php">logout</a> 
+</div>
+<header>
+<h1>UPLOAD FILES</h1>
+</header>
+<br>
+<form action="upload.php" method="post" enctype="multipart/form-data">
+<input type="file" name="file" />
+<button type="submit" name="btn-upload" >upload</button>
+</form>
+</div>
+<?php } ?>
+</body>
+</html>
