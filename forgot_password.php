@@ -34,7 +34,7 @@ $cost = 10;
    {
 	echo "Error: " . $updated. "<br>" . $connection->error;
 	$_SESSION['error'] = "Error: " . $updated . "<br>" . $connection->error;
-	header('Location:http://localhost.myapps/poweradmin/forgot_password.html?encrypt='.$id.'&action=reset');
+	header('Location:forgot_password.html?encrypt='.$id.'&action=reset');
 	}
 	 
 	}
