@@ -11,32 +11,36 @@ if(isset($_POST['btn-upload'])&& $_FILES['file']['size'] > 0)
  $folder="uploads/";
  $id=$_SESSION['user']['id'];
  
+ echo $file;
+ echo $file_loc;
+ echo $file_type;
+ echo $folder;
  
  
  
  
  move_uploaded_file($file_loc,$folder.$file);
- $sql=mysqli_query($connection,"INSERT INTO files(file,file_type,file_size,user_id) VALUES('$file','$file_type','file_size','$id')");
+ $sql=mysqli_query($connection,"INSERT INTO files(file,file_type,user_id) VALUES('$file','$file_size','$id')");
  if ($sql) 
  {
-	 session_start();
+	 //session_start();
     $_SESSION["message"]="File uploaded successful";
 	header('location:view_files.html');
-	
+	echo"a";
  }
 else 
 {
     echo "Error: " . $sql . "<br>" . $connection->error;
 	$_SESSION['error'] = "Error: " . $sql . "<br>" . $connection->error;
-	header('Location:upload.html');
-	
+	header('Location:view_files.html');
+	echo"b";
 }
  
  }
  else{
-header('Location:upload.html');
+header('Location:view_files.html');
 $_SESSION["message"]="please select file"; 
-	//echo "c";
+	echo "c";
  }
  
 ?>

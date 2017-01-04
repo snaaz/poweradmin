@@ -1,22 +1,9 @@
 <html>
-<body bgcolor="#E6E6FA">
+<head>
 
-
-<style type="text/css">
-table{ width: 30%; }
-table, th, td {
-   border: 1px solid black;
-   
-}
-.center{
-   margin: auto;
-   width: 50%;
-  /* border: 3px solid #73AD21;*/
-   padding: 50px;
-   
-}
-</style>
-
+<link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
+  <script type="text/javascript" src="bootstrap-3.3.7-dist/js/jquery.min.js"></script>
+  <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 
 
 <script>
@@ -35,75 +22,99 @@ function alertbox() {
 	return flag;
 }
 function ConfirmDelete() { var x = confirm("Are you sure you want to delete?"); if (x) return true; else return false; } 
+
+$(document).ready(function(){
+    $("button").click(function(){
+        $("#demo").load("create.html");
+    });
+});
+
+
 </script>
-
 <style>
-
-a:visited {
-    color: blue;
-    background-color:#f48024 ;
-    text-decoration: none;
-	border-color:#9B6114;
-	box-shadow:inset 0 1px 0 #ffc272;
-}
-a:hover {
-    color: blue;
-    background-color:#9B6114 ;
-    text-decoration: none;
-	border-color:#9B6114;
-	box-shadow:inset 0 1px 0 #ffc272;
-}
-
-.button {
-  font: bold 15px Arial;
-  text-decoration: none;
-  background-color: #EEEEEE;
-  color: #333333;
-  padding: 2px 6px 2px 6px;
-  border-top: 1px solid #CCCCCC;
-  border-right: 1px solid #333333;
-  border-bottom: 1px solid #333333;
-  border-left: 1px solid #CCCCCC;
-}
-header {
-    padding: 1em;
-    color: white;
-    background-color: black;
-    clear: left;
-    text-align: center;
+/* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 100%}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 800;
+    }
+    
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;} 
+    }
 	
-}
 </style>
-
-
+</head>
+<body>
 <?php include('db.php'); 
- session_start();
+session_start();?>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">   
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="dashboard.html">Home</a></li> 
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+	  	<li style="color:white;">Welcome <?php echo $_SESSION['user']['firstname']; ?> <?php echo $_SESSION['user']['lastname']; ?></li>
+        <li><a href="login.html"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container-fluid ">    
+ <div class="row content">
+  <div class="col-sm-2 sidenav">
+  <?php include('links.php');?>
+  </div>
+  <div class="col-sm-8" id="demo">
+  
+  <h1 class="text-center">INDEX PAGE</h1>
+    <hr>
+
+<div class="col-sm-12">
+<?php 
  if(isset($_SESSION["message"]))
 	{
 	echo $_SESSION["message"];
 	unset($_SESSION["message"]);
 	}
 ?>
-<div class="center">
-<br>
-<b><a href="dashboard.html" class="button"> Home</a></b>
-<br>
-<div align="right">
-Welcome <?php echo $_SESSION['user']['firstname']; ?> <?php echo $_SESSION['user']['lastname']; ?> &nbsp <a href="Logout.php">logout</a> 
+<div  align="right">
+<button class="btn btn-info btn-sm"> Create new records</button>
 </div>
-<header>
-<h1>WELCOME TO INDEX PAGE</h1>
-</header>
-<?php include('links.php');?>
-<article>
-<table bgcolor="#FFFFE0" align="center">
+<br>
+<table class="table table-striped">
   <tr>
     <th>Name</th>   
     <th>Email</th>
 	<th>Phone</th>  
+	
     <th>City</th>
 	<th>Status</th>
-	<th colspan="3">Actions</th>
+	<th colspan="2">Actions</th>
   </tr>
  
 <?php $users=mysqli_query($connection,"select * FROM `users` WHERE isadmin='0'");
@@ -120,19 +131,20 @@ while($row=mysqli_fetch_array($users)){ ?>
 	<?php } ?>
 	
 	<td><a href="view_user.html?id=<?php echo $row['id'];?>" style="text-decoration: none;" color="blue"> View</a> </td>
-	<td><a href="edit_user.html?id=<?php echo $row['id'];?>" style="text-decoration: none;"> Edit</a> </td>
+	
 	<td><a href="delete.php?id=<?php echo $row['id'];?>" onClick="return alertbox();" style="text-decoration: none;"> Delete </a> </td>
 	</tr>
 <?php } ?>
 </table>
-</article>
-<p id="demo"></p>
-</br>
-</br>
-<b><a href="create.html" class="button" > Create new records</a></b>
-</br>
-</br>
 
+<p id="demo"></p>
+
+</div>
+</div>
+  <div class="col-sm-2 sidenav"></div>
+  
+</div>
+</div>
 </div>
 </body>
 </html>

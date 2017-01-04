@@ -1,97 +1,116 @@
 <html>
+<head>
+
+<link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
+  <script type="text/javascript" src="bootstrap-3.3.7-dist/js/jquery.min.js"></script>
+  <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+
 <style>
-
-a:visited {
-    color: blue;
-    background-color:#f48024 ;
-    text-decoration: none;
-	border-color:#9B6114;
-	box-shadow:inset 0 1px 0 #ffc272;
-}
-a:hover {
-    color: blue;
-    background-color:#9B6114 ;
-    text-decoration: none;
-	border-color:#9B6114;
-	box-shadow:inset 0 1px 0 #ffc272;
-}
-
-.button {
-  font: bold 15px Arial;
-  text-decoration: none;
-  background-color: #EEEEEE;
-  color: #333333;
-  padding: 2px 6px 2px 6px;
-  border-top: 1px solid #CCCCCC;
-  border-right: 1px solid #333333;
-  border-bottom: 1px solid #333333;
-  border-left: 1px solid #CCCCCC;
-}
-.center{
-   margin: auto;
-   width: 50%;
-  /* border: 3px solid #73AD21;*/
-   padding: 50px;
-   
-}
-header {
-    padding: 1em;
-    color: white;
-    background-color: black;
-    clear: left;
-    text-align: center;
+/* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 100%}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+    
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;} 
+    }
 	
-}
-
-nav {
-    float: left;
-    max-width: 160px;
-    margin: 0;
-    padding: 1em;
-}
-
-nav ul {
-    list-style-type: none;
-    padding: 0;
-}
-   
-nav ul a {
-    text-decoration: none;
-}
 </style>
-<body bgcolor="#E6E6FA">
-
-
+</head>
+<body>
 <?php session_start();
-if(isset($_SESSION["message"]))
-{
-echo $_SESSION["message"];
-unset ($_SESSION["message"]);
-}
 include('db.php');
 if(isset($_SESSION['user']))
 {
 
 ?>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">   
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="dashboard.html">Home</a></li> 
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+	  	<li style="color:white;">Welcome <?php echo $_SESSION['user']['firstname']; ?> <?php echo $_SESSION['user']['lastname']; ?></li>
+        <li><a href="login.html"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container-fluid ">    
+ <div class="row content">
+  <div class="col-sm-2 sidenav">
+  <?php include('links.php');?>
+  </div>
+  <div class="col-sm-8">
+  
+  <h1 class="text-center">USER FILES DETAILS</h1>
+    <hr>
+<div class="col-sm-12" id="demo">
+<?php if(isset($_SESSION["message"]))
+{
+echo $_SESSION["message"];
+unset ($_SESSION["message"]);
+}
+?>
 
-<div class="center">
-<br>
-<b><a href="dashboard.html" class="button"> Home</a></b>
-<br>
 <div align="right">
-Welcome <?php echo $_SESSION['user']['firstname']; ?> <?php echo $_SESSION['user']['lastname']; ?> &nbsp <a href="logout.php">logout</a> 
+ <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">Upload Files</button>
+ </div>
+	 
+ <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+<form action="upload.php" method="post" name="" enctype="multipart/form-data" >
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          
+        </div>
+     
+	 <input type="file" name="file" />
+<button type="submit" name="btn-upload" >upload</button>
+    
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      </form>
+      
+
+
 </div>
-<header>
-<h1>USER FILE DETAILS</h1>
-</header>
-<?php include('links.php');?>
-<div align="center">
-<div align="right">
-<br>
-<b><a href="upload.html" class="button">Upload Files</a><b>
 </div>
+
 <br>
-<table width="80%" border="1">
+
+
+<table width="80%" class="table table-striped" border="1" align="center">
     
     <?php 
 	$id=$_SESSION['user']['id'];
@@ -100,17 +119,21 @@ Welcome <?php echo $_SESSION['user']['firstname']; ?> <?php echo $_SESSION['user
  { 
   ?>
         <tr>
-        <td><image src="uploads/<?php echo $row['file']?>"width="5%" height="5%"><?php echo $row['file'] ?></td>
+        <td><image src="uploads/<?php echo $row['file']?>"width="50" height="50"><?php echo $row['file'] ?></td>
         <td><a href="download.php?id=<?php echo $row['id']?>">download</a></td>
         <td><a href="uploads/<?php echo $row['file'] ?>" target="_blank">viewfile</a></td>
 		<td><a href="delete_file.php?id=<?php echo $row['id'] ?>">delete</a></td>
         </tr>
 <?php }  ?>
 </table>
-<br>
-<br>
-
 
 <?php } ?>
+
+
+</div>
+</div>
+<div class="col-sm-2 sidenav"></div>
+</div>
+</div>
 </body>
 </html>

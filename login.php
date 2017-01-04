@@ -5,7 +5,8 @@ session_start();
 $email=$_POST['email']; 
 $userpass=$_POST['password']; 
 
-
+echo $email;
+echo $userpass;
 $result=mysqli_query($connection,"select * FROM `users` WHERE email='$email' limit 1");
 
 $row = mysqli_fetch_array($result);

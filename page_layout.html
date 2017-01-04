@@ -1,11 +1,240 @@
-<html>
-<body>
-<code>
-<div style="border:1px solid red">
-  <div id="left">l</div>
-  <div id="left">r</div>
-  <div id="left">c</div>
-</div>
-</code>
-</body>
-</html>
+<head>
+
+<link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
+  <script type="text/javascript" src="bootstrap-3.3.7-dist/js/jquery.min.js"></script>
+  <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<script>
+function validateForm() {
+	
+    var x = document.forms["form1"]["fname"].value;
+    if (x == null || x == "") {
+	 document.getElementById("demo").innerHTML = "Please Insert First Name";
+        return false;
+    }
+	else{
+	document.getElementById("demo").innerHTML = "";
+	}
+	
+	
+	
+	var y = document.forms["form1"]["lname"].value;
+    if (y == null || y == "") {
+	 document.getElementById("demo1").innerHTML = "Please Insert Last Name";
+        return false;
+    }
+	else{
+	document.getElementById("demo1").innerHTML = "";
+	}
+	
+	var z = document.forms["form1"]["email"].value;
+   var atpos = z.indexOf("@");
+    var dotpos = z.lastIndexOf(".");
+    if (atpos<1 || dotpos<atpos+2 || dotpos+2>=z.length) {
+       document.getElementById("demo2").innerHTML = "Not a valid e-mail address";
+        return false;
+    }
+	else {
+	document.getElementById("demo2").innerHTML = "";
+	}
+	
+	var m = document.forms["form1"]["password"].value;
+    if (m == null || m == "") {
+	 document.getElementById("demo7").innerHTML = "Password can't be blank";
+        return false;
+    }
+	else{
+	document.getElementById("demo7").innerHTML = "";
+	}
+	
+	var i = document.forms["form1"]["phone"].value;
+	console.log(i);
+    if (i == null || i == "") {
+	 document.getElementById("demo3").innerHTML = "Please Insert Phone no";
+        return false;
+    }
+	else{
+	document.getElementById("demo3").innerHTML = "";
+	}
+	
+	var j = document.forms["form1"]["address"].value;
+    if (j == null || j == "") {
+	 document.getElementById("demo4").innerHTML = "Please Insert Address";
+        return false;
+    }
+	else{
+	document.getElementById("demo4").innerHTML = "";
+	}
+	
+	var k = document.forms["form1"]["city"].value;
+    if (k == null || k == "") {
+	 document.getElementById("demo5").innerHTML = "Please Insert City";
+        return false;
+    }
+	else{
+	document.getElementById("demo5").innerHTML = "";
+	}
+	
+	var l = document.forms["form1"]["state"].value;
+    if (l == null || l == "") {
+	 document.getElementById("demo6").innerHTML = "Please Select a State";
+        return false;
+    }
+	else{
+	document.getElementById("demo6").innerHTML = "";
+	}
+	
+	
+}
+</script>
+<style>
+/* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 600px}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+    
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;} 
+    }
+	
+</style>
+</head>
+	<?php include'create.php'; 
+session_start();
+?>
+	<form method="post" action="create.php" name="form1"
+		onsubmit="return validateForm()">
+
+		
+			<table bgcolor="#FFFFE0" align="center">
+				<tr width="50" height="20">
+					<th align="left" width="200">First Name:</th>
+					<th><input type="text" name="fname" size="22"></th>
+				</tr>
+
+				<tr width="50" height="20">
+					<th></th>
+					<th align="left" width="200"><span id="demo"
+						style="color: blue"></span></th>
+				</tr>
+
+				<tr width="50" height="20">
+					<th align="left">Last Name:</th>
+					<th><input type="text" name="lname" value="" size="22"></th>
+				</tr>
+
+				<tr width="50" height="20">
+					<th></th>
+					<th align="left" width="200"><span id="demo1"
+						style="color: blue"></span>
+					<th>
+				</tr>
+
+				<tr width="50" height="20">
+					<th align="left">Email:</th>
+					<th><input type="email" name="email" value="" size="22"></th>
+				</tr>
+
+				<tr width="50" height="20">
+					<th></th>
+					<th align="left" width="200"><span id="demo2"
+						style="color: blue"></span></th>
+				</tr>
+
+				<tr width="50" height="20">
+					<th align="left">Password:</th>
+					<th><input type="password" name="password" value="" size="22"></th>
+				</tr>
+
+				<tr width="50" height="20">
+					<th></th>
+					<th align="left" width="200"><span id="demo7"
+						style="color: blue"></span></th>
+				</tr>
+
+				<tr width="50" height="20">
+					<th align="left">Phone:</th>
+					<th><input type="text" name="phone" value="" size="22"></th>
+
+				</tr>
+
+				<tr width="50" height="20">
+					<th></th>
+					<th align="left" width="200"><span id="demo3"
+						style="color: blue"></span></th>
+				</tr>
+
+				<tr width="50" height="20">
+					<th align="left">Address:</th>
+					<th><input type="text" name="address" value="" size="22">
+					</th>
+
+				</tr>
+
+				<tr width="50" height="20">
+					<th></th>
+					<th align="left" width="200"><span id="demo4"
+						style="color: blue"></span></th>
+				</tr>
+
+				<tr width="50" height="20">
+					<th align="left">City:</th>
+					<th><input type="text" name="city" value="" size="22"></th>
+
+				</tr>
+
+				<tr width="50" height="20">
+					<th></th>
+					<th align="left" width="200"><span id="demo5"
+						style="color: blue"></span></th>
+				</tr>
+
+				<tr width="50" height="20">
+					<th align="left">State:</th>
+					<th><select name="state">
+							<?php while($state=mysqli_fetch_array($states)){ ?>
+							<option value="<?php echo $state['name'];?>"><?php echo $state['name'];?>
+							</option>
+							<?php } ?>
+					</select></th>
+
+				</tr>
+
+				<tr width="50" height="20">
+					<th></th>
+					<th align="left" width="200"><span id="demo6"
+						style="color: blue"></span></th>
+				</tr>
+				<tr width="50" height="20">
+					<th align="left">Active</th>
+					<th><input type="radio" name="status" value="1">Active
+						<input type="radio" name="status" value="0">Deactive</th>
+
+				</tr>
+			</table>
+			<br> <br> <input type="submit" name="submit" value="Create"
+				class="button">
+
+	

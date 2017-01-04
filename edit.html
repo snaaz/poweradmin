@@ -1,5 +1,4 @@
 <html>
-<body bgcolor="#E6E6FA">
 <style type="text/css">
 table{ width: 80%;}
 table, th, td {
@@ -12,6 +11,8 @@ table, th, td {
    padding: 50px;
 }
 </style>
+<body bgcolor="#E6E6FA">
+
 
 <script>
 function alertbox() {
@@ -162,7 +163,7 @@ Welcome <?php echo $_SESSION['user']['firstname']; ?> <?php echo $_SESSION['user
 <th><select name="state">
 
 <?php
-if($_SESSION['user']['name']==$_SESSION['user']['state']){
+if($_SESSION['state']['name'] == $_SESSION['user']['state']){
 ?>
 <option value="<?php echo $_SESSION['user']['state'];?>" selected="selected"><?php echo $_SESSION['user']['state'];?> </option>
 <?php } else { ?>

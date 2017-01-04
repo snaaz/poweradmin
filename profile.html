@@ -1,143 +1,139 @@
 <html>
-<body bgcolor="#E6E6FA">
+<head>
 
-<style type="text/css">
-table{ width: 50%;}
-
-.center{
-   margin: auto;
-   width: 50%;
-  /* border: 3px solid #73AD21;*/
-   padding: 50px;
+<link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
+  <script type="text/javascript" src="bootstrap-3.3.7-dist/js/jquery.min.js"></script>
+  <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<script>
+function loadDoc() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("demo").innerHTML =
+      this.responseText;
+    }
+  };
+  xhttp.open("post", "edit1.html", true);
+  xhttp.send();
 }
-</style>
-
+</script>
 <style>
-
-a:visited {
-    color: black
-    background-color:#f48024 ;
-    text-decoration: none;
-	border-color:#9B6114;
-	box-shadow:inset 0 1px 0 #ffc272;
-}
-a:hover {
-    color: white;
-    background-color:#9B6114 ;
-    text-decoration: none;
-	border-color:#9B6114;
-	box-shadow:inset 0 1px 0 #ffc272;
-}
-
-.button {
-  font: bold 15px Arial;
-  text-decoration: none;
-  background-color: #EEEEEE;
-  color: #333333;
-  padding: 2px 6px 2px 6px;
-  border-top: 1px solid #CCCCCC;
-  border-right: 1px solid #333333;
-  border-bottom: 1px solid #333333;
-  border-left: 1px solid #CCCCCC;
-}
-header {
-    padding: 1em;
-    color: white;
-    background-color: black;
-    clear: left;
-    text-align: center;
+/* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 100%}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+    
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;} 
+    }
 	
-}
-
-nav {
-    float: left;
-    max-width: 160px;
-    margin: 0;
-    padding: 1em;
-}
-
-nav ul {
-    list-style-type: none;
-    padding: 0;
-}
-   
-nav ul a {
-    text-decoration: none;
-}
-
 </style>
-
+</head>
+<body>
 <?php include('db.php'); 
- session_start();
+session_start();?>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">   
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="dashboard.html">Home</a></li> 
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+	  	<li style="color:white;">Welcome <?php echo $_SESSION['user']['firstname']; ?> <?php echo $_SESSION['user']['lastname']; ?></li>
+        <li><a href="login.html"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container-fluid ">    
+ <div class="row content">
+  <div class="col-sm-2 sidenav">
+  <?php include('links.php');?>
+  </div>
+  <div class="col-sm-8">
+  
+  <h1 class="text-center">PROFILE</h1>
+    <hr>
+
+<div class="col-sm-8" id="demo">
+<form method="post" action="" name="form1"  class="form-horizontal">
+ <div class="form-group">
+      <label class=" col-sm-2" for="name">Name:</label>
+        <label class=" col-sm-10" for="name"><?php echo $_SESSION['user']['firstname'];?> <?php echo $_SESSION['user']['lastname'];?></label>
+</div>
+	
+<div class="form-group">
+      <label class="col-sm-2" for="email">Email:</label>
+      <label class="col-sm-10" for="email"><?php echo $_SESSION['user']['email'];?></label>
+</div>
+
+<div class="form-group">
+
+      <label class="col-sm-2" for="phone">Phone:</label>
+       <label class="col-sm-10" for="phone"><?php echo $_SESSION['user']['phone'];?></label>
+  
+</div>
+
+<div class="form-group">
+      <label class="col-sm-2" for="address">Address:</label>
+      
+        <label class="col-sm-10" for="address"><?php echo $_SESSION['user']['address'];?></label>
+</div>
+
+<div class="form-group">
+      <label class="col-sm-2" for="city" >City:</label>
+       <label class="col-sm-10" for="city"><?php echo $_SESSION['user']['city'];?></label>
+</div>
+
+<div class="form-group">
+      <label class="col-sm-2" for="state">State:</label>
+       <label class="col-sm-10" for="state"><?php echo $_SESSION['user']['state'];?></label>
+</div>
+<div class="form-group">        
+      <div class="col-sm-offset-2 col-sm-10">
+	 
+	 <button type="button" onclick="loadDoc()" class="btn btn-info btn-sm">EDIT</button>
+      </div>
+      <?php 
  if(isset($_SESSION["message"]))
 	{
 	echo $_SESSION["message"];
 	unset($_SESSION["message"]);
 	}
 ?>
-
-<form method="post" action="" name="form" onsubmit="return validateForm()">
-<div class="center">
-<br>
-<b><a href="dashboard.html" class="button"> Home</a></b>
-<br>
-<div align="right">
-
-Welcome <?php echo $_SESSION['user']['firstname']; ?> <?php echo $_SESSION['user']['lastname']; ?> &nbsp <a href="logout.php">logout</a> 
-</div>
-<header>
-<h1>USER PROFILE</h1>
-</header>
-<?php
-include('links.php');?>
-<article>
-<table bgcolor="#FFFFE0">    
-
-	<tr>
-	 <th align="left" width="200">Name</th>
-	<th align="left" ><?php echo $_SESSION['user']['firstname'];?> <?php echo $_SESSION['user']['lastname'];?></th>
-    </tr>
-	<tr>
-	<th align="left">Email</th>
-	<th align="left"><?php echo $_SESSION['user']['email'];?></th>
-	</tr>
-	<tr>
-	<th align="left">Phone</th> 
-	<th align="left"><?php echo $_SESSION['user']['phone'];?></th>
-	</tr>
-	<tr>
-	<th align="left">Address</th> 
-	<th align="left"><?php echo $_SESSION['user']['address'];?></th>
-	</tr>
-	<tr>
-	 <th align="left">City</th>
-	<th align="left"><?php echo $_SESSION['user']['city'];?></th>
-	</tr>
-	<tr>
-	<th align="left">State</th>
-	<th align="left"><?php echo $_SESSION['user']['state'];?></th>
-	</tr>
-	
-	<br>
-	<br>
-	<tr>
-	<th align="right"><a href="edit.html?id=<?php echo $_SESSION['user']['id'];?>" class="button">EDIT</a></th>
-	</tr>
-</table>
-
-</article>	
-	<br>
-	<br>
-<th align="right"><a href="dashboard.html?id=<?php echo $_SESSION['user']['id'];?>" class="button">BACK</a></th>
-	
-	<br>
-	<br>
-	
-
-</div>
-
-
+ </div>
 </form>
+</div>
+</div>
+  <div class="col-sm-2 sidenav"></div>
+  
+</div>
+</div>
 
 </body>
 </html>

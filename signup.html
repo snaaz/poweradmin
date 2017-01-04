@@ -1,4 +1,9 @@
 <html>
+<head>
+
+<link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
+  <script type="text/javascript" src="bootstrap-3.3.7-dist/js/jquery.min.js"></script>
+  <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 <script>
 function validateForm() {
 	
@@ -82,173 +87,146 @@ function validateForm() {
 	
 }
 </script>
-
-<body bgcolor="#E6E6FA">
-
-<!-- comment  -->
- <style type="text/css">
-table{ width: 70%;}
-table, th, td {
-   
-}
-.center{
-   margin: auto;
-   width: 50%;
-  /* border: 1px solid #73AD21;*/
-   padding: 50px;
-}
-</style>
-
 <style>
-
-a:visited {
-    color: blue;
-    background-color:#f48024 ;
-    text-decoration: none;
-	border-color:#9B6114;
-	box-shadow:inset 0 1px 0 #ffc272;
-}
-a:hover {
-    color: white;
-    background-color:#9B6114 ;
-    text-decoration: none;
-	border-color:#9B6114;
-	box-shadow:inset 0 1px 0 #ffc272;
-}
-
-.button {
-  font: bold 15px Arial;
-  text-decoration: none;
-  background-color: #EEEEEE;
-  color: #333333;
-  padding: 2px 6px 2px 6px;
-  border-top: 1px solid #CCCCCC;
-  border-right: 1px solid #333333;
-  border-bottom: 1px solid #333333;
-  border-left: 1px solid #CCCCCC;
-  background-color:#f48024 ;
-}
-header {
-    padding: 1em;
-    color: white;
-    background-color: black;
-    clear: left;
-    text-align: center;
+/* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 600px}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+    
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;} 
+    }
 	
-}
 </style>
-
+</head>
+<body>
 <?php include'signup.php'; 
 session_start();
 ?>
-<form method="post" action="create.php" name="form1" onsubmit="return validateForm()">
-<br>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid"> 
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+	  	
+        <li><a href="login.html" class="active"> Back to login</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
 
-<br>
+<div class="container-fluid ">    
+ <div class="row content">
+  <div class="col-sm-2 sidenav"></div>
+  <div class="col-sm-8">
+  
+  <h1 class="text-center">SIGNUP</h1>
+    <hr>
+	
 
-<div class="center">
-<div align="right">
-<b><a href="login.html" class="button"> Back to login</a></b>
+<div class="col-sm-12">
+<form method="post" action="signup.php" name="form1" onsubmit="return validateForm()" class="form-horizontal">
+ <div class="form-group">
+      <label class="col-sm-2" for="fname">First Name:</label>
+      <div class="col-sm-3">
+        <input type="text" class="form-control" name="fname" placeholder="Enter first name">
+      </div>
+	  <div class="col-sm-3"><span id="demo" style="color:blue"></span></div>
 </div>
-<br>
-<header>
-SIGN UP
-</header>
 
-<br>
-<table bgcolor="#FFFFE0" align="center">
-<tr width="50" height="20">
-<th align="left" width="200">First Name:</th>    
-<th><input type="text" name="fname" size="22"></th>
-</tr>
+<div class="form-group">
+      <label class="col-sm-2" for="lname">Last Name:</label>
+      <div class="col-sm-3">
+        <input type="text" class="form-control" name="lname" placeholder="Enter last name">
+      </div>
+	  <div class="col-sm-3"><span id="demo1" style="color:blue"></span></div>
+</div>
+	
+<div class="form-group">
+      <label class="col-sm-2 text-left" for="email">Email:</label>
+      <div class="col-sm-3">
+        <input type="email" class="form-control" name="email" placeholder="Enter Email">
+      </div>
+	  <div class="col-sm-3"><span id="demo2" style="color:blue"></span></div>
+</div>
 
-<tr width="50" height="20">
-<th></th>
-<th align="left" width="200" ><span id="demo" style="color:blue"></span></th>
-</tr>
+<div class="form-group">
+      <label class="col-sm-2" for="password">password:</label>
+      <div class="col-sm-3">
+        <input type="password" class="form-control" name="password" placeholder="Enter password">
+      </div>
+	  <div class="col-sm-3"><span id="demo7" style="color:blue"></span></div>
+</div>
 
-<tr width="50" height="20">
-<th align="left">Last Name: </th> 
-<th> <input type="text" name="lname" value="" size="22"></th> 
-</tr>
+<div class="form-group">
+      <label class="col-sm-2" for="phone">Phone:</label>
+      <div class="col-sm-3">
+        <input type="text" class="form-control" name="phone" placeholder="Enter phone">
+      </div>
+	  <div class="col-sm-3"><span id="demo3" style="color:blue"></span></div>
+</div>
 
-<tr width="50" height="20">
-<th></th>
-<th align="left" width="200"><span id="demo1" style="color:blue"></span><th>
-</tr>
+<div class="form-group">
+      <label class="col-sm-2" for="address">Address:</label>
+      <div class="col-sm-3">
+        <input type="text" class="form-control" name="address" placeholder="Enter address">
+      </div>
+	  <div class="col-sm-3"><span id="demo4" style="color:blue"></span></div>
+</div>
 
-<tr width="50" height="20">
-<th align="left">Email:</th>
-<th> <input type="email" name="email" value="" size="22"></th> 
-</tr>
+<div class="form-group">
+      <label class="col-sm-2 text-left" for="city" >City:</label>
+      <div class="col-sm-3">
+        <input type="text" class="form-control" name="city" placeholder="Enter city">
+      </div>
+	  <div class="col-sm-3"><span id="demo5" style="color:blue"></span></div>
+</div>
 
-<tr width="50" height="20">
-<th></th>
-<th align="left" width="200"><span id="demo2" style="color:blue"></span></th>
-</tr>
-
-<tr width="50" height="20">
-<th align="left">Password:</th>
-<th> <input type="password" name="password" value="" size="22"></th> 
-</tr>
-
-<tr width="50" height="20">
-<th></th>
-<th align="left" width="200"><span id="demo7" style="color:blue"></span></th>
-</tr>
-
-<tr width="50" height="20">
-<th align="left">Phone:</th>   
-<th> <input type="text" name="phone" value="" size="22"></th>
-
-</tr>
-
-<tr width="50" height="20">
-<th></th>
-<th align="left" width="200"><span id="demo3" style="color:blue"></span></th>
-</tr>
-
-<tr width="50" height="20">
-<th align="left">Address:</th>  
-<th> <input type="text" name="address" value="" size="22"> </th>
-
-</tr>
-
-<tr width="50" height="20">
-<th></th>
-<th align="left" width="200"><span id="demo4" style="color:blue"></span></th>
-</tr>
-
-<tr width="50" height="20">
-<th align="left">City:</th> 
-<th><input type="text" name="city" value="" size="22"></th> 
-
-</tr>
-
-<tr width="50" height="20">
-<th></th>
-<th align="left" width="200"><span id="demo5" style="color:blue"></span></th>
-</tr>
-
-<tr width="50" height="20">
-<th align="left">State:</th>
-<th><select name="state">
+<div class="form-group">
+      <label class="col-sm-2" for="state">State:</label>
+      <div class="col-sm-3">
+	  <select name="state"  class="form-control" >
 <?php while($state=mysqli_fetch_array($states)){ ?>
-  <option value="<?php echo $state['name'];?>"><?php echo $state['name'];?> </option>
+  <option value="<?php echo $state['name'];?>" class="form-control"><?php echo $state['name'];?> </option>
  <?php } ?>
-</select></th>
-
-</tr>
-
-<tr width="50" height="20">
-<th></th>
-<th align="left" width="200"><span id="demo6" style="color:blue"></span></th>
-</tr>
-</table>
-<br>
-<br>
-<input type="submit" name="submit" value="Create" class="button">
-
+</select>
+      </div>
+	  <div class="col-sm-3"><span id="demo6" style="color:blue"></span></div>
 </div>
+<div class="form-group">        
+      <div class="col-sm-offset-2 col-sm-10">
+	  <input type="submit" name="submit" value="Register" class="btn btn-info btn-sm">
+      </div>
+ </div>
+
+</form>
+</div>
+</div>
+  <div class="col-sm-2 sidenav"></div>
+</div>
+</div>
+
 </body>
 </html>

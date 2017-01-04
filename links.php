@@ -1,6 +1,6 @@
 <?php
 
-echo"<nav>";
+//echo"<nav>";
 echo "<ul>";
   echo"<li>";
   echo"<a href='profile.html'>My Profile";
@@ -22,7 +22,7 @@ echo "<ul>";
   echo"</li>";
 }
 echo"</ul>";
-echo"</nav>";
+//echo"</nav>";
    
 
  ?>

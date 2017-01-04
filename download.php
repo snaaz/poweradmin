@@ -28,6 +28,7 @@ $result=mysqli_fetch_array($query);
 
 else
 	echo"error";
+
 //include 'library/closedb.php'; 
 //exit;
  ?>
