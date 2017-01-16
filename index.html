@@ -4,7 +4,43 @@
 <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
   <script type="text/javascript" src="bootstrap-3.3.7-dist/js/jquery.min.js"></script>
   <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-
+<style>
+/* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 100%}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+    
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: 100%;
+        padding: 15px;
+      }
+      .row.content {height:auto;} 
+    }
+    body, .sidenav {
+    height:100%
+}
+	
+</style>
 
 <script>
 function alertbox() {
@@ -21,50 +57,47 @@ function alertbox() {
    // document.getElementById("demo").innerHTML = x;
 	return flag;
 }
+
+
 function ConfirmDelete() { var x = confirm("Are you sure you want to delete?"); if (x) return true; else return false; } 
 
 $(document).ready(function(){
-    $("button").click(function(){
+    $("#create").click(function(){
         $("#demo").load("create.html");
     });
+    
+    $('input[type="checkbox"]').change(function(){
+    	console.log("----------kkk-------");
+    	//console.log($(this).attr('id'));
+    	var id = $(this).attr('id');
+    	var check = $(this).prop('checked');
+    	//console.log(check);
+    	$.ajax( {
+            type: 'POST',
+            dataType: 'json',
+            url: 'edit_user.php',
+            data: 'id='+id+'&status=' + check,
+          // data: response.Text,
+            
+            success: function(data) {	
+            	
+            	if(data.status == "success"){
+            		
+                    $("#show").text( check == true ? 'USER ACTIVAED.' : 'USER DEACTIVATED.');
+            	}
+            	if(data.status == 'error'){
+            		
+            	      $("#show").text("Error Updating status");	
+            	}
+            }
+    	 
+        } );
+    }); 
 });
 
 
 </script>
-<style>
-/* Remove the navbar's default margin-bottom and rounded borders */ 
-    .navbar {
-      margin-bottom: 0;
-      border-radius: 0;
-    }
-    
-    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-    .row.content {height: 100%}
-    
-    /* Set gray background color and 100% height */
-    .sidenav {
-      padding-top: 20px;
-      background-color: #f1f1f1;
-      height: 800;
-    }
-    
-    /* Set black background color, white text and some padding */
-    footer {
-      background-color: #555;
-      color: white;
-      padding: 15px;
-    }
-    
-    /* On small screens, set height to 'auto' for sidenav and grid */
-    @media screen and (max-width: 767px) {
-      .sidenav {
-        height: auto;
-        padding: 15px;
-      }
-      .row.content {height:auto;} 
-    }
-	
-</style>
+
 </head>
 <body>
 <?php include('db.php'); 
@@ -79,7 +112,7 @@ session_start();?>
       </ul>
       <ul class="nav navbar-nav navbar-right">
 	  	<li style="color:white;">Welcome <?php echo $_SESSION['user']['firstname']; ?> <?php echo $_SESSION['user']['lastname']; ?></li>
-        <li><a href="login.html"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+        <li><a href="logout.php"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
       </ul>
     </div>
   </div>
@@ -95,16 +128,25 @@ session_start();?>
     <hr>
 
 <div class="col-sm-12">
+
+<div class="col-sm-4" id="show">
 <?php 
  if(isset($_SESSION["message"]))
 	{
 	echo $_SESSION["message"];
 	unset($_SESSION["message"]);
 	}
+ if(isset($_SESSION["error"]))
+	{
+	echo $_SESSION["error"];
+	unset($_SESSION["error"]);
+	}
 ?>
-<div  align="right">
-<button class="btn btn-info btn-sm"> Create new records</button>
 </div>
+<div class="col-sm-8" align="right">
+<button class="btn btn-info btn-sm" id="create"> Create new records</button>
+</div>
+<br>
 <br>
 <table class="table table-striped">
   <tr>
@@ -113,7 +155,7 @@ session_start();?>
 	<th>Phone</th>  
 	
     <th>City</th>
-	<th>Status</th>
+	<th>Active</th>
 	<th colspan="2">Actions</th>
   </tr>
  
@@ -124,12 +166,8 @@ while($row=mysqli_fetch_array($users)){ ?>
 	<td><?php echo $row['email'];?></td>
 	<td><?php echo $row['phone'];?></td>
 	<td><?php echo $row['city'];?></td>
-	<?php if($row['active']==1){ ?>
-	<td><?php echo "Active";?></td>
-	<?php } else { ?>
-	<td><?php echo "Deactive";?></td>
-	<?php } ?>
 	
+	<td><input type="checkbox" name="status" id="<?php echo $row['id'];?>" <?php if ($row['active'] == 1) echo 'checked'; ?> ></td>
 	<td><a href="view_user.html?id=<?php echo $row['id'];?>" style="text-decoration: none;" color="blue"> View</a> </td>
 	
 	<td><a href="delete.php?id=<?php echo $row['id'];?>" onClick="return alertbox();" style="text-decoration: none;"> Delete </a> </td>

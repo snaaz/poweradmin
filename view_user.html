@@ -74,7 +74,7 @@ function changeFunction() {
 <body>
 <?php include('db.php'); 
 session_start();
-include'edit_user.php'; ?>
+include'view_user.php'; ?>
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">   
@@ -85,7 +85,7 @@ include'edit_user.php'; ?>
       </ul>
       <ul class="nav navbar-nav navbar-right">
 	  	<li style="color:white;">Welcome <?php echo $_SESSION['user']['firstname']; ?> <?php echo $_SESSION['user']['lastname']; ?></li>
-        <li><a href="login.html"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+        <li><a href="logout.php"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
       </ul>
     </div>
   </div>
@@ -106,7 +106,7 @@ include'edit_user.php'; ?>
   
 <?php 
  
-while($row=mysqli_fetch_array($guest)){ ?>
+while($row=mysqli_fetch_array($user)){ ?>
  <div class="form-group">
 	<label class="col-sm-3" >Name</label>
 	<label class="col-sm-5"><?php echo $row['firstname'];?> <?php echo $row['lastname'];?></label>  
@@ -134,14 +134,18 @@ while($row=mysqli_fetch_array($guest)){ ?>
 	<div class="form-group">
 			<label class="col-sm-3
 			 text-left" for="city">Status:</label> 
-			<div class="col-sm-5">
-			<input type="radio" name="status"  value="1" <?php if ($row['active'] == 1) echo 'checked'; ?>  />Active
-		     <input type="radio" name="status" value="0" <?php if ($row['active'] == 0) echo 'checked'; ?>  />Deactive	
-		</div>
+			<label class="col-sm-5">
+			<?php if($row['active']==1){ ?>
+	<td><?php echo "Active";?></td>
+	<?php } else { ?>
+	<td><?php echo "Deactive";?></td>
+	<?php } ?>
+		    	
+		</label>
         </div>
 	
 	<input type="hidden" name="id" value="<?php echo $row['id'];?>">	
-	<input type="submit" name="update" value="update" class="btn btn-info btn-sm" onclick="return changeFunction();" >
+	
 
 <?php } ?>
 </form>

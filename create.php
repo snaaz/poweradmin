@@ -22,11 +22,11 @@ $salt = strtr(base64_encode(mcrypt_create_iv(16, MCRYPT_DEV_URANDOM)), '+', '.')
 $salt = sprintf("$2a$%02d$", $cost) . $salt;
 $hash = crypt($password, $salt);
 
-$sql = "INSERT INTO users(firstname,lastname,email,password,Phone,Address,city,state,active)
+$create = "INSERT INTO users(firstname,lastname,email,password,Phone,Address,city,state,active)
         values('$first_name', '$last_name','$email','$hash','$phone','$addr','$city','$state','$active')";
   
   
-if ($connection->query($sql) === TRUE) 
+if ($connection->query($create) == TRUE) 
 {
     echo "New record created successfully";
 	session_start();
@@ -43,8 +43,8 @@ else{
 }
 else 
 {
-    echo "Error: " . $sql . "<br>" . $connection->error;
-	$_SESSION['error'] = "Error: " . $sql . "<br>" . $connection->error;
+    echo "Error: " . $create . "<br>" . $connection->error;
+	$_SESSION['error'] = "Error: " . $create . "<br>" . $connection->error;
 	header('Location: create.html');
 }
 }

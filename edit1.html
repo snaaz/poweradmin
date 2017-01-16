@@ -119,16 +119,17 @@
 
 		</div>
 		<div class="form-group">
-			<label class="col-sm-4" for="img">Profile Img:</label> <input
-				type="file" id="filename" name="file" accept="image/*"
-				onchange="Checkfiles()">
-			<?php 
+		<?php 
 	$id=$_SESSION['user']['id'];
  $result_set=mysqli_query($connection,"SELECT * FROM files where user_id='".$id."' and profile_pic=1");
  
  while($row=mysqli_fetch_array($result_set))
  {
   ?>
+			<label class="col-sm-4" for="img">Profile Img:</label> 
+			<input type="file" id="filename" name="file" accept="image/*"
+				onchange="Checkfiles()">
+			
 			<image src="uploads/<?php echo $row['file']?>" width="100" height="150"></image>
  <?php } ?>
 		</div>
@@ -138,4 +139,13 @@
 				<input type="submit" name="update" value="update" class="btn btn-info btn-sm" onclick="return alertbox();" >
 			</div>
 		</div>
+		
+		<?
+		 if(isset($_SESSION["error"]))
+	{
+	echo $_SESSION["error"];
+	unset($_SESSION["error"]);
+	}
+		?>
+		
 	</form>
