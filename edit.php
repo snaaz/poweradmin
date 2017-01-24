@@ -8,7 +8,8 @@ $error_insert = null;
 if (isset ( $_GET ['id'] )) {
 	$id = $_GET ['id'];
 }
-
+$id=$_SESSION['user']['id'];
+$result_set=mysqli_query($connection,"SELECT * FROM files where user_id='".$id."' and profile_pic=1");
 $states = mysqli_query ( $connection, "select * FROM `states` WHERE 1" );
 
 if (isset ( $_POST ['update'] )) {

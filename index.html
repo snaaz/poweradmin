@@ -12,13 +12,18 @@
     }
     
     /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-    .row.content {height: 100%}
+    .row.content {height: auto;
+  min-height:0;
+       overflow:hidden;
+    }
     
     /* Set gray background color and 100% height */
     .sidenav {
       padding-top: 20px;
       background-color: #f1f1f1;
-      height: 100%;
+     height: 100%; 
+   
+    
     }
     
     /* Set black background color, white text and some padding */
@@ -33,11 +38,22 @@
       .sidenav {
         height: 100%;
         padding: 15px;
+       
+        
       }
-      .row.content {height:auto;} 
+      .row.content {height:auto;
+      min-height:0;
+       overflow:hidden;} 
     }
     body, .sidenav {
-    height:100%
+    height:100%;  
+    } 
+    
+    .container-fluid {
+    	min-height:0;
+       overflow:hidden;
+   
+    }
 }
 	
 </style>
@@ -62,8 +78,13 @@ function alertbox() {
 function ConfirmDelete() { var x = confirm("Are you sure you want to delete?"); if (x) return true; else return false; } 
 
 $(document).ready(function(){
+	
+	var divHeight = $('.col-sm-8').height(); 
+    $('.col-sm-2').css('min-height', divHeight+'px');
+
+	
     $("#create").click(function(){
-        $("#demo").load("create.html");
+        $("#register").load("create.html");
     });
     
     $('input[type="checkbox"]').change(function(){
@@ -93,7 +114,13 @@ $(document).ready(function(){
     	 
         } );
     }); 
+    
+    
+    
+    
 });
+
+	  	
 
 
 </script>
@@ -101,7 +128,9 @@ $(document).ready(function(){
 </head>
 <body>
 <?php include('db.php'); 
-session_start();?>
+session_start();
+if(isset($_SESSION['user'])){
+?>
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">   
@@ -117,14 +146,19 @@ session_start();?>
     </div>
   </div>
 </nav>
+<?php 
+}else { 
+header("location:login.html");
+}
+?>
 <div class="container-fluid ">    
  <div class="row content">
   <div class="col-sm-2 sidenav">
   <?php include('links.php');?>
   </div>
-  <div class="col-sm-8" id="demo">
+  <div class="col-sm-8" id="register">
   
-  <h1 class="text-center">INDEX PAGE</h1>
+  <h1 class="text-center">Users List</h1>
     <hr>
 
 <div class="col-sm-12">
@@ -175,7 +209,7 @@ while($row=mysqli_fetch_array($users)){ ?>
 <?php } ?>
 </table>
 
-<p id="demo"></p>
+
 
 </div>
 </div>

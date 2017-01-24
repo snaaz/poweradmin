@@ -12,7 +12,7 @@ if (isset ( $_POST ['status'] )) {
 	$id = $_POST ['id'];
 	$active = ($active_save == 'true') ? 1 : 0;
 	
-	$updated = mysqli_query ( $connection, "UPDATE users set active='" . $active . "' WHERE id = '" . $id . "'" );
+	$updated = mysqli_query( $connection, "UPDATE users set active='" . $active . "' WHERE id = '" . $id . "'" );
 	
 	if ($updated) {
 		$array = array (

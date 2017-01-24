@@ -54,7 +54,9 @@ function loadDoc() {
 </head>
 <body>
 <?php include('db.php'); 
-session_start();?>
+session_start();
+if(isset($_SESSION['user'])){
+?>
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">   
@@ -70,6 +72,10 @@ session_start();?>
     </div>
   </div>
 </nav>
+<?php }else{
+header("location:login.html");
+}
+?>
 <div class="container-fluid ">    
  <div class="row content">
   <div class="col-sm-2 sidenav">

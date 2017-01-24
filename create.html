@@ -8,14 +8,12 @@ function validateForm() {
 	
     var x = document.forms["form1"]["fname"].value;
     if (x == null || x == "") {
-	 document.getElementById("demo").innerHTML = "Please Insert First Name";
+	 document.getElementById("demo0").innerHTML = "Please Insert First Name";
         return false;
     }
 	else{
-	document.getElementById("demo").innerHTML = "";
+	document.getElementById("demo0").innerHTML = "";
 	}
-	
-	
 	
 	var y = document.forms["form1"]["lname"].value;
     if (y == null || y == "") {
@@ -122,21 +120,23 @@ function validateForm() {
 </style>
 </head>
 	<?php include'create.php'; 
-session_start();
+// session_start();
 ?>
-	<div class="col-sm-12 text-center">
+
+<div class="container-fluid ">    
+ <div class="row content">
+	<div class="col-sm-12">
   
-  <h1>CREATE NEW RECORDS</h1>
+  <h1 class="text-center">CREATE NEW RECORDS</h1>
     <hr>
-	</div>
-<div class="col-sm-12">
-<form method="post" action="signup.php" name="form1" onsubmit="return validateForm()" class="form-horizontal">
+    
+<form method="post" action="create.php" name="form1" onsubmit="return validateForm()" class="form-horizontal">
  <div class="form-group">
       <label class="col-sm-2" for="fname">First Name:</label>
       <div class="col-sm-3">
         <input type="text" class="form-control" name="fname" placeholder="Enter first name">
       </div>
-	  <div class="col-sm-3"><span id="demo" style="color:blue"></span></div>
+	  <div class="col-sm-4"><span id="demo0" style="color:blue"></span></div>
 </div>
 
 <div class="form-group">
@@ -213,5 +213,6 @@ session_start();
 
 </form>
 </div>
-
+</div>
+</div>
 	

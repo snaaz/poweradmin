@@ -2,7 +2,7 @@
 include('db.php');
 
  $states =mysqli_query($connection,"select * FROM `states` WHERE 1");
- 
+ session_start();
  if(isset($_POST['submit']))
 {
 $first_name=$_POST['fname'];
@@ -22,14 +22,12 @@ $salt = strtr(base64_encode(mcrypt_create_iv(16, MCRYPT_DEV_URANDOM)), '+', '.')
 $salt = sprintf("$2a$%02d$", $cost) . $salt;
 $hash = crypt($password, $salt);
 
-$create = "INSERT INTO users(firstname,lastname,email,password,Phone,Address,city,state,active)
-        values('$first_name', '$last_name','$email','$hash','$phone','$addr','$city','$state','$active')";
+$create = mysqli_query($connection, "INSERT INTO users (firstname,lastname,email,password,Phone,Address,city,state,active)
+        values('$first_name', '$last_name','$email','$hash','$phone','$addr','$city','$state','$active')");
   
-  
-if ($connection->query($create) == TRUE) 
+if ($create) 
 {
-    echo "New record created successfully";
-	session_start();
+	
     $_SESSION["message"]="NEW RECORD INSERTED SUCCSESSFULLY";
 	
 	if(isset($_SESSION['user']['isadmin']) and $_SESSION['user']['isadmin']==1)
@@ -43,9 +41,11 @@ else{
 }
 else 
 {
-    echo "Error: " . $create . "<br>" . $connection->error;
-	$_SESSION['error'] = "Error: " . $create . "<br>" . $connection->error;
-	header('Location: create.html');
+	$error_create = mysqli_error ( $connection );
+	$error_create = explode ( ";", $error_create, 3 );
+	$error_create = array_values ( $error_create ) [0];
+	$_SESSION['error'] ="Record could not inserted...." .$error_create;
+	header('Location: index.html');
 }
 }
 $connection->close();
